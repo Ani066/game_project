@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Maze Runner v3.2 — Home</title>
+<link rel="stylesheet" href="styles.css">
+<!-- Placeholder AdSense script (replace with your publisher ID) -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="wrap">
+  <header><h1>Maze Runner v3.2</h1><div class="small">Keyboard controls • No sounds • Ad-ready</div></header>
+  <main>
+    <section class="card">
+      <div class="panel">
+        <a class="btn" href="levels.html">Play — Level Select</a>
+        <a class="btn ghost" href="game.html?level=1">Quick Play (Level 1)</a>
+        <button class="btn" id="openSkins">Choose Runner</button>
+      </div>
+      <div class="stats" style="margin-top:12px">
+        <div>Unlocked level: <span id="unlocked">1</span></div>
+        <div>Best score: <span id="best">0</span></div>
+        <div>Coins: <span id="coins">0</span></div>
+      </div>
+      <div style="margin-top:12px">
+        <button class="btn" id="watchHomeReward">Watch Ad for 10 coins</button>
+        <button class="btn ghost" id="resetBtn">Reset Progress</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>How to play</h3>
+      <p>Use <strong>Arrow keys</strong> or <strong>WASD</strong> to move. Reach the green exit to clear a level.</p>
+      <p>Banners/placeholders show where ads will appear. Replace placeholder AdSense ID with your real ID after approval.</p>
+    </section>
+  </main>
+
+  <!-- Banner placeholder -->
+  <div class="banner" id="banner">Ad Banner Placeholder</div>
+</div>
+
+<!-- Skins modal -->
+<div id="skinsModal" class="modal"><div class="modal-inner"><h3>Choose Runner</h3><div id="skinsList"></div><p><button class="btn" id="closeSkins">Close</button></p></div></div>
+
+<!-- Ad modal (interstitial / rewarded) -->
+<div id="adModal" class="modal"><div class="modal-inner"><h3 id="adTitle">Ad</h3><div style="font-size:18px;margin:8px">Ad playing... <span id="adTime">5</span>s</div><p><button class="btn" id="closeAd" disabled>Close</button></p></div></div>
+
+<script src="scripts/ads.js"></script>
+<script src="scripts/coins.js"></script>
+<script>
+// page init
+document.getElementById('unlocked').textContent = localStorage.getItem('mr_unlocked_v3') || '1';
+document.getElementById('best').textContent = localStorage.getItem('mr_best_v3') || '0';
+document.getElementById('coins').textContent = localStorage.getItem('mr_coins_v3') || '0';
+
+document.getElementById('openSkins').addEventListener('click', ()=>{ buildSkins(); document.getElementById('skinsModal').style.display='flex'; });
+document.getElementById('closeSkins').addEventListener('click', ()=>{ document.getElementById('skinsModal').style.display='none'; });
+
+document.getElementById('watchHomeReward').addEventListener('click', ()=>{
+  showRewardedAd({onComplete: ()=>{ addCoins(10); alert('You earned 10 coins!'); }});
+});
+
+document.getElementById('resetBtn').addEventListener('click', ()=>{
+  if(confirm('Reset progress?')){
+    localStorage.removeItem('mr_unlocked_v3'); localStorage.removeItem('mr_best_v3'); localStorage.removeItem('mr_coins_v3'); localStorage.removeItem('mr_skin_v3');
+    alert('Progress reset. Reloading...'); location.reload();
+  }
+});
+</script>
+</body>
+</html>

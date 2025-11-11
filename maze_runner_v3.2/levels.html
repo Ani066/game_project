@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Levels - Maze Runner v3.2</title><link rel="stylesheet" href="styles.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script></head>
+<body>
+<div class="wrap">
+  <header><h1>Select Level</h1><a class="btn ghost" href="index.html">Home</a></header>
+  <main class="card">
+    <div id="levelsGrid" class="grid"></div>
+  </main>
+  <div class="banner" id="banner">Ad Banner Placeholder</div>
+</div>
+
+<script src="scripts/ads.js"></script>
+<script>
+// build level buttons
+const TOTAL = 20;
+let unlocked = parseInt(localStorage.getItem('mr_unlocked_v3') || '1',10);
+const grid = document.getElementById('levelsGrid');
+for(let i=1;i<=TOTAL;i++){
+  const b = document.createElement('div');
+  b.className = 'levelCard' + (i>unlocked ? ' locked' : '');
+  b.textContent = 'Level ' + i + (i>unlocked ? ' 🔒' : '');
+  b.onclick = ()=>{
+    if(i>unlocked){ alert('Locked. Play earlier levels to unlock.'); return; }
+    // show interstitial then go to game
+    showInterstitialAd({onClose: ()=>{ location.href = 'game.html?level=' + i; }});
+  };
+  grid.appendChild(b);
+}
+</script>
+</body>
+</html>

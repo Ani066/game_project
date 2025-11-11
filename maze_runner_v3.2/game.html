@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Game - Maze Runner v3.2</title><link rel="stylesheet" href="styles.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script></head>
+<body>
+<div class="wrap">
+  <header><a class="btn ghost" href="index.html">Home</a><h1>Maze Runner</h1></header>
+  <main class="card">
+    <div class="hud small">Level: <span id="levelNum">1</span> • Lives: <span id="lives">3</span> • Time: <span id="time">0s</span> • Score: <span id="score">0</span></div>
+    <div class="canvas-wrap"><canvas id="gameCanvas" width="540" height="540"></canvas></div>
+    <div class="controls" style="justify-content:center; margin-top:8px">
+      <div class="small">Use Arrow keys or WASD to move</div>
+    </div>
+  </main>
+  <div class="banner" id="banner">Ad Banner Placeholder</div>
+</div>
+
+<!-- Ad Modal -->
+<div id="adModal" class="modal"><div class="modal-inner"><h3 id="adTitle">Ad</h3><div style="font-size:18px;margin:8px">Ad playing... <span id="adTime">5</span>s</div><p><button class="btn" id="closeAdBtn" disabled>Close</button></p></div></div>
+
+<script src="scripts/ads.js"></script>
+<script src="scripts/coins.js"></script>
+<script src="scripts/game.js"></script>
+<script>
+// init level from query
+function qs(name){ const p = new URLSearchParams(location.search); return p.get(name); }
+let lvl = parseInt(qs('level')||'1',10);
+document.getElementById('levelNum').textContent = lvl;
+startLevel(lvl);
+</script>
+</body>
+</html>
